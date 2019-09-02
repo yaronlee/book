@@ -1,0 +1,21 @@
+#为了避免改动任何代码就需要重新编译整个项目的问题，
+#我们将主规则的各个依赖替换成各自的中间文件
+
+#好处：
+#当有一个文件发生改动时，只需重新编译此文件即可，而无需重新编译整个项目
+
+app: main.o fun1.o fun2.o
+	gcc main.o fun1.o fun2.o -o app
+
+main.o: main.c
+	gcc -c main.c -o main.o
+
+fun1.o: fun1.c
+	gcc -c fun1.c -o fun1.o
+
+fun2.o: fun2.c
+	gcc -c fun2.c -o fun2.o
+
+#不足：
+#（1）里面存在一些重复的内容，可以考虑用变量代替；
+#（2）后面三条规则非常类似，可以考虑用一条模式规则代替。
